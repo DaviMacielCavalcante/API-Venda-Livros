@@ -8,12 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 @Entity
+@Table(name = "dados_conta")
 @Getter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -30,8 +33,14 @@ public class DadosConta {
 	private String cpf;
 	private Date dataNasc;
 	private Integer telefone;
+	
+	@OneToMany(mappedBy = "dados_conta")	
 	private List<Enderecos> enderecos = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "dados_conta")
 	private List<Pedidos> pedidos = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "dados_conta")
 	private List<ListaDesejos> listaDesejos = new ArrayList<>();
 	
 	public DadosConta() {		

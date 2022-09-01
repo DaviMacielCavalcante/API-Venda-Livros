@@ -1,20 +1,24 @@
 package com.apiVendasLivros.entities;
 
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.apiVendasLivros.enums.Acabamento;
 import com.apiVendasLivros.enums.Digital;
 import com.apiVendasLivros.enums.Encomenda;
 import com.apiVendasLivros.enums.ForaDeLinha;
 
+import lombok.EqualsAndHashCode;
+
 @Entity
+@Table(name = "livros")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Livros {
 	
+	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -217,21 +221,4 @@ public class Livros {
 				+ ", numeroPaginas=" + numeroPaginas + ", paisDeOrigem=" + paisDeOrigem + ", genero=" + genero
 				+ ", editora=" + editora + "]";
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Livros other = (Livros) obj;
-		return Objects.equals(id, other.id);
-	}	
 }
