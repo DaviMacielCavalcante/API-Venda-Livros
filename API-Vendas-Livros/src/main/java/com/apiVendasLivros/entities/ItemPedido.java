@@ -43,7 +43,23 @@ public class ItemPedido {
 	public ItemPedido(Integer quantidade) {
 		this.quantidade = quantidade;
 		this.preco = livro.getPreco();
-	}	
+	}		
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public void setLivro(Livros livro) {
+		this.livro = livro;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = livro.getPreco();
+	}
 	
 	public Double subTotal() {
 		return quantidade * preco;
