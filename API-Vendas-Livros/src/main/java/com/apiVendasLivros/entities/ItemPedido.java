@@ -28,12 +28,13 @@ public class ItemPedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity = com.apiVendasLivros.entities.Pedidos.class)
 	@JoinColumn(name = "id_item_pedido")
 	private List<Pedidos> pedido = new ArrayList<>();
 	
 	@OneToOne
 	private Livros livro;
+	
 	private Integer quantidade;
 	private Double preco;
 	

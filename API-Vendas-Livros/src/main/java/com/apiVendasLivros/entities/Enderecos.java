@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -37,11 +35,7 @@ public class Enderecos {
 	
 	@Column(name = "pais_de_origem")
 	private String paisdeOrigem;
-	private String cep;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_enderecos")
-	private DadosConta conta;
+	private String cep;	
 	
 	public void setId(Integer id) {
 		this.id = id;

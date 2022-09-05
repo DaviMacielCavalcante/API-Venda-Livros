@@ -39,13 +39,16 @@ public class DadosConta {
 	private Date dataNasc;
 	private Integer telefone;
 	
-	@OneToMany(mappedBy = "dados_conta")	
+	@OneToMany	
+	@Column(name = "id_enderecos")
 	private List<Enderecos> enderecos = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "dados_conta")
+	@OneToMany
+	@Column(name = "id_pedidos")
 	private List<Pedidos> pedidos = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "dados_conta")
+	@OneToMany
+	@Column(name = "id_lista_desejos")
 	private List<ListaDesejos> listaDesejos = new ArrayList<>();
 	
 	public DadosConta() {		

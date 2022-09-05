@@ -39,8 +39,10 @@ public class Pedidos {
 	@JoinColumn(name = "id_pedidos")
 	private DadosConta conta;
 	
-	@OneToMany(mappedBy = "pedidos")	
+	@OneToMany
+	@Column(name = "id_item_pedido")
 	private List<ItemPedido> itemPedido = new ArrayList<>();
+	
 	private Double total;
 	
 	public Pedidos() {		
