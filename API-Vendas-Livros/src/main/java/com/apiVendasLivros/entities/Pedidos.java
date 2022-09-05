@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,8 @@ public class Pedidos {
 	private Integer id;
 	
 	private Date momento;
+	
+	@Column(name = "status_pedido")
 	private Integer status;
 	
 	@ManyToOne

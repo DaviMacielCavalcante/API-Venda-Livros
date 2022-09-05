@@ -1,5 +1,6 @@
 package com.apiVendasLivros.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,17 +28,33 @@ public class Livros {
 	private String autor;
 	private String tradutor;
 	private Integer acabamento;
+	
+	@Column(name = "sob_encomenda")
 	private Integer encomenda;
-	private Integer edicao;
+	
+	private Integer edicao;	
 	private Integer isbn;
 	private Double preco;
 	private String idioma;
+	
+	@Column(name = "fora_de_linha")
 	private Integer foraDeLinha;
+	
+	@Column(name = "formato_digital")
 	private Integer formatoDigital;
+	
+	@Column(name = "produto_digital")
 	private Integer produtoDigital;
+	
+	@Column(name = "numero_edicao")
 	private Integer numeroEdicao;
+	
+	@Column(name = "numeros_paginas")
 	private Integer numeroPaginas;
+	
+	@Column(name = "pais_de_origem")
 	private String paisDeOrigem;
+	
 	private String genero;
 	private String editora;
 	

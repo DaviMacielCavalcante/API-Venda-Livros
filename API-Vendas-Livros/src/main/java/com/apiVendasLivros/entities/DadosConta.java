@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,8 +30,12 @@ public class DadosConta {
 	
 	private String email;
 	private String nome;
+	
+	@Column(name = "sobre_nome")
 	private String sobreNome;
 	private String cpf;
+	
+	@Column(name = "data_nascimento")
 	private Date dataNasc;
 	private Integer telefone;
 	

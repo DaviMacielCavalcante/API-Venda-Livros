@@ -1,5 +1,6 @@
 package com.apiVendasLivros.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,6 +34,8 @@ public class Enderecos {
 	private String bairro;
 	private String cidade;
 	private String estado;
+	
+	@Column(name = "pais_de_origem")
 	private String paisdeOrigem;
 	private String cep;
 	
