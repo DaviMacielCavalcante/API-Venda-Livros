@@ -1,5 +1,6 @@
 package com.apiVendasLivros.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.ObjectNotFoundException;
@@ -18,6 +19,31 @@ public class LivrosService {
 	public Livros findById(Integer id) {
 		Optional<Livros> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + id, "Tipo: " + Livros.class.getName()));
+	}
+	
+	public Livros findByTitulo(String titulo) {
+		Optional<Livros> obj = repository.findByTitulo(titulo);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + titulo, "Tipo: " + Livros.class.getName()));
+	}
+	
+	public Livros findByIsbn(Integer isbn) {
+		Optional<Livros> obj = repository.findByIsbn(isbn);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + isbn, "Tipo: " + Livros.class.getName()));
+	}
+	
+	public List<Livros> findByAutor(String autor) {
+		List<Livros> livros = repository.findByAutor(autor);
+		return livros;
+	}
+	
+	public List<Livros> findByGenero(String genero){
+		List<Livros> livros = repository.findByGenero(genero);
+		return livros;
+	}
+	
+	public List<Livros> findAll(){
+		List<Livros> livros = repository.findAll();
+		return livros;
 	}
 	
 	public Livros insert(Livros obj) {
@@ -55,5 +81,9 @@ public class LivrosService {
 	
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
+	}
+	
+	public void deleteByIsbn(Integer isbn) {
+		repository.deleteByIsbn(isbn);
 	}
 }

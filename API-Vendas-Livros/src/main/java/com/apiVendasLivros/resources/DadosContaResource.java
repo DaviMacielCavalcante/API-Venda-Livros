@@ -71,7 +71,7 @@ public class DadosContaResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}" ,method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody DadosConta conta, @PathVariable Integer id){
 		conta.setId(id);
 		

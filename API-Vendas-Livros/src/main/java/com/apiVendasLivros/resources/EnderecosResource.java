@@ -39,8 +39,8 @@ public class EnderecosResource {
 		return ResponseEntity.created(uri).build();		
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Enderecos obj, Integer id) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Enderecos obj, @PathVariable Integer id) {
 		
 		obj.setId(id);
 		
