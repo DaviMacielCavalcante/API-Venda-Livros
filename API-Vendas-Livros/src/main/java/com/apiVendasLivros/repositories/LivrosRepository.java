@@ -13,7 +13,7 @@ public interface LivrosRepository extends JpaRepository<Livros, Integer> {
 
 	Optional<Livros> findByTitulo(String titulo);
 		
-	Optional<Livros> findByIsbn(Integer isbn);
+	Optional<Livros> findByIsbn(String isbn);
 	
 	List<Livros> findByAutor(String autor);
 	

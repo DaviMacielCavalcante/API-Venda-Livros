@@ -31,7 +31,7 @@ public class LivrosResources {
 	}
 	
 	@RequestMapping(value = "/isbn/{isbn}", method = RequestMethod.GET)
-	public ResponseEntity<Livros> findByIsbn(@PathVariable Integer isbn){
+	public ResponseEntity<Livros> findByIsbn(@PathVariable String isbn){
 		
 		Livros obj = livrosService.findByIsbn(isbn);
 		

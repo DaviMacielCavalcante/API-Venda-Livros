@@ -26,7 +26,7 @@ public class LivrosService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + titulo, "Tipo: " + Livros.class.getName()));
 	}
 	
-	public Livros findByIsbn(Integer isbn) {
+	public Livros findByIsbn(String isbn) {
 		Optional<Livros> obj = repository.findByIsbn(isbn);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + isbn, "Tipo: " + Livros.class.getName()));
 	}

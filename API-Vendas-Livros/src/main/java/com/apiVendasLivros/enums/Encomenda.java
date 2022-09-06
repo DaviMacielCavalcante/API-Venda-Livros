@@ -25,7 +25,9 @@ public enum Encomenda {
 			return null;
 		}
 		for (Encomenda a : Encomenda.values()) {
-			return a;
+			if (cod.equals(a.getCod())) {
+				return a;
+			}			
 		}
 		throw new IllegalArgumentException("Id inválido: " + cod);
 	}

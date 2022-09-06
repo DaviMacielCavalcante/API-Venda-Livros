@@ -2,7 +2,8 @@ package com.apiVendasLivros.enums;
 
 public enum ForaDeLinha {
 	
-	SIM(1, "Sim"), NAO(2, "Não");
+	SIM(1, "Sim"), 
+	NAO(2, "Não");
 	
 	private int cod;
 	private String descricao;
@@ -18,14 +19,16 @@ public enum ForaDeLinha {
 
 	public String getDescricao() {
 		return descricao;
-	}
+	}	
 	
 	public static ForaDeLinha toEnum(Integer cod) {
 		if (cod == null) {
 			return null;
 		}
 		for (ForaDeLinha a : ForaDeLinha.values()) {
-			return a;
+			if (cod.equals(a.getCod())) {
+				return a;
+			}
 		}
 		throw new IllegalArgumentException("Id inválido: " + cod);
 	}

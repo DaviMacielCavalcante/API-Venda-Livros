@@ -1,8 +1,9 @@
 package com.apiVendasLivros.enums;
 
-public enum Digital {
+public enum Digital {	
 	
-	SIM(1, "Sim"), NAO(2, "Não");
+	SIM(1, "Sim"),	
+	NAO(2, "Não");
 	
 	private int cod;
 	private String descricao;
@@ -25,7 +26,9 @@ public enum Digital {
 			return null;
 		}
 		for (Digital a : Digital.values()) {
-			return a;
+			if (cod.equals(a.getCod())) {
+				return a;
+			}
 		}
 		throw new IllegalArgumentException("Id inválido: " + cod);
 	}

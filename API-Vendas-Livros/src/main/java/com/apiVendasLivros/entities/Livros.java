@@ -33,7 +33,7 @@ public class Livros {
 	private Integer encomenda;
 	
 	private Integer edicao;	
-	private Integer isbn;
+	private String isbn;
 	private Double preco;
 	private String idioma;
 	
@@ -49,7 +49,7 @@ public class Livros {
 	@Column(name = "numero_edicao")
 	private Integer numeroEdicao;
 	
-	@Column(name = "numeros_paginas")
+	@Column(name = "numero_paginas")
 	private Integer numeroPaginas;
 	
 	@Column(name = "pais_de_origem")
@@ -62,7 +62,7 @@ public class Livros {
 	}
 
 	public Livros(Integer id, String titulo, String autor, String tradutor, Acabamento acabamento, Encomenda encomenda,
-			Integer edicao, Integer isbn, Double preco, String idioma, ForaDeLinha foraDeLinha, Digital formatoDigital,
+			Integer edicao, String isbn, Double preco, String idioma, ForaDeLinha foraDeLinha, Digital formatoDigital,
 			Digital produtoDigital, Integer numeroEdicao, Integer numeroPaginas, String paisDeOrigem, String genero,
 			String editora) {
 		this.id = id;
@@ -76,7 +76,7 @@ public class Livros {
 		this.preco = preco;
 		this.idioma = idioma;
 		this.foraDeLinha = foraDeLinha.getCod();
-		this.formatoDigital = formatoDigital.getCod();
+		this.formatoDigital = (formatoDigital==null)? null : formatoDigital.getCod();;
 		this.produtoDigital = produtoDigital.getCod();
 		this.numeroEdicao = numeroEdicao;
 		this.numeroPaginas = numeroPaginas;
@@ -117,12 +117,12 @@ public class Livros {
 		this.tradutor = tradutor;
 	}
 
-	public Integer getEncomenda() {
-		return encomenda;
+	public Encomenda getEncomenda() {
+		return Encomenda.toEnum(encomenda);
 	}
 
-	public void setEncomenda(Integer encomenda) {
-		this.encomenda = encomenda;
+	public void setEncomenda(Encomenda encomenda) {
+		this.encomenda = encomenda.getCod();
 	}
 
 	public Integer getEdicao() {
@@ -133,11 +133,11 @@ public class Livros {
 		this.edicao = edicao;
 	}
 
-	public Integer getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(Integer isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 

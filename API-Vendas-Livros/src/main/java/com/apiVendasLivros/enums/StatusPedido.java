@@ -29,7 +29,9 @@ public enum StatusPedido {
 			return null;
 		}
 		for (StatusPedido a : StatusPedido.values()) {
-			return a;
+			if (cod.equals(a.getCod())) {
+				return a;
+			}
 		}
 		throw new IllegalArgumentException("Id inválido: " + cod);
 	}
