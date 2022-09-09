@@ -81,9 +81,9 @@ public class LivrosService {
 	
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
-	}
-	
-	public void deleteByIsbn(Integer isbn) {
+	}	
+
+	public void deleteByIsbn(String isbn) {
 		repository.deleteByIsbn(isbn);
 	}
 }

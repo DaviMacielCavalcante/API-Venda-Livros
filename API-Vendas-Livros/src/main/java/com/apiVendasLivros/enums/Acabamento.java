@@ -2,7 +2,8 @@ package com.apiVendasLivros.enums;
 
 public enum Acabamento {
 	
-	BROCHURA(1, "Brochura"), CAPA_DURA(2, "Capa Dura");
+	BROCHURA(1, "Brochura"), 
+	CAPA_DURA(2, "Capa Dura");
 	
 	private int cod;
 	private String descricao;

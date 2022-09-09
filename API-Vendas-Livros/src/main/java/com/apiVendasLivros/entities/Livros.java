@@ -1,15 +1,19 @@
 package com.apiVendasLivros.entities;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.apiVendasLivros.enums.Acabamento;
 import com.apiVendasLivros.enums.Digital;
-import com.apiVendasLivros.enums.Encomenda;
 import com.apiVendasLivros.enums.ForaDeLinha;
 
 import lombok.EqualsAndHashCode;
@@ -17,7 +21,8 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "livros")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Livros {
+public class Livros implements Serializable {	
+	private static final long serialVersionUID = 1L;
 	
 	@EqualsAndHashCode.Include
 	@Id
@@ -27,10 +32,10 @@ public class Livros {
 	private String titulo;
 	private String autor;
 	private String tradutor;
-	private Integer acabamento;
+	private Integer acabamento;	
 	
 	@Column(name = "sob_encomenda")
-	private Integer encomenda;
+	private String encomenda;
 	
 	private Integer edicao;	
 	private String isbn;
@@ -58,10 +63,13 @@ public class Livros {
 	private String genero;
 	private String editora;
 	
+	@OneToMany
+	private List<ItemPedido> pedido = new ArrayList<>();
+	
 	public Livros() {		
 	}
 
-	public Livros(Integer id, String titulo, String autor, String tradutor, Acabamento acabamento, Encomenda encomenda,
+	public Livros(Integer id, String titulo, String autor, String tradutor, Acabamento acabamento, String encomenda,
 			Integer edicao, String isbn, Double preco, String idioma, ForaDeLinha foraDeLinha, Digital formatoDigital,
 			Digital produtoDigital, Integer numeroEdicao, Integer numeroPaginas, String paisDeOrigem, String genero,
 			String editora) {
@@ -70,7 +78,7 @@ public class Livros {
 		this.autor = autor;
 		this.tradutor = tradutor;
 		this.acabamento = acabamento.getCod();
-		this.encomenda = encomenda.getCod();
+		this.encomenda = encomenda;
 		this.edicao = edicao;
 		this.isbn = isbn;
 		this.preco = preco;
@@ -117,12 +125,12 @@ public class Livros {
 		this.tradutor = tradutor;
 	}
 
-	public Encomenda getEncomenda() {
-		return Encomenda.toEnum(encomenda);
+	public String getEncomenda() {
+		return encomenda;
 	}
 
-	public void setEncomenda(Encomenda encomenda) {
-		this.encomenda = encomenda.getCod();
+	public void setEncomenda(String encomenda) {
+		this.encomenda = encomenda;
 	}
 
 	public Integer getEdicao() {

@@ -3,8 +3,11 @@ package com.apiVendasLivros.resources;
 import java.net.URI;
 import java.util.List;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +20,7 @@ import com.apiVendasLivros.services.LivrosService;
 
 @RestController
 @RequestMapping(value = "/livros")
+@Transactional
 public class LivrosResources {
 	
 	@Autowired
@@ -88,10 +92,10 @@ public class LivrosResources {
 		livrosService.deleteById(id);
 		
 		return ResponseEntity.noContent().build();
-	}
+	}	
 	
 	@RequestMapping(value = "/delisbn/{isbn}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteByIsbn(@PathVariable Integer isbn) {
+	public ResponseEntity<Void> deleteByIsbn(@PathVariable String isbn) {
 		
 		livrosService.deleteByIsbn(isbn);
 		

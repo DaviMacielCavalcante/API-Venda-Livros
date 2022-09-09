@@ -1,5 +1,7 @@
 package com.apiVendasLivros.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +22,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Enderecos {
+public class Enderecos implements Serializable {	
+	private static final long serialVersionUID = 1L;
 	
 	@EqualsAndHashCode.Include
 	@Id
@@ -35,7 +38,7 @@ public class Enderecos {
 	
 	@Column(name = "pais_de_origem")
 	private String paisdeOrigem;
-	private String cep;	
+	private String cep;		
 	
 	public void setId(Integer id) {
 		this.id = id;

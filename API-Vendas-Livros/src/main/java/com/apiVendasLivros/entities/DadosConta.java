@@ -1,5 +1,6 @@
 package com.apiVendasLivros.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -21,8 +24,9 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class DadosConta {
-	
+public class DadosConta implements Serializable {	
+	private static final long serialVersionUID = 1L;
+
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,17 +43,24 @@ public class DadosConta {
 	private Date dataNasc;
 	private Integer telefone;
 	
-	@OneToMany	
-	@Column(name = "id_enderecos")
-	private List<Enderecos> enderecos = new ArrayList<>();
 	
-	@OneToMany
-	@Column(name = "id_pedidos")
-	private List<Pedidos> pedidos = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(name = "dados_conta_enderecos", 
+	joinColumns = @JoinColumn(name = "id_dados_conta", referencedColumnName = "id"), 
+	inverseJoinColumns = @JoinColumn(name = "id_enderecos", referencedColumnName = "id"))
+	private List<Enderecos> enderecos = new ArrayList<>();		
 	
-	@OneToMany
-	@Column(name = "id_lista_desejos")
-	private List<ListaDesejos> listaDesejos = new ArrayList<>();
+	@ManyToMany	
+	@JoinTable(name = "dados_conta_pedidos", 
+	joinColumns = @JoinColumn(name = "id_dados_conta", referencedColumnName = "id"), 
+	inverseJoinColumns = @JoinColumn(name = "id_pedidos", referencedColumnName = "id"))	
+	private List<Pedidos> pedidos = new ArrayList<>();	
+	
+	@ManyToMany
+	@JoinTable(name = "lista_desejos", 
+	joinColumns = @JoinColumn(name = "id_dados_conta", referencedColumnName = "id"), 
+	inverseJoinColumns = @JoinColumn(name = "id_livros", referencedColumnName = "id"))
+	private List<Livros> listaDesejos = new ArrayList<>();
 	
 	public DadosConta() {		
 	}

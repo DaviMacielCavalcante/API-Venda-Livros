@@ -3,8 +3,10 @@ package com.apiVendasLivros.repositories;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.apiVendasLivros.entities.Livros;
 
@@ -19,6 +21,7 @@ public interface LivrosRepository extends JpaRepository<Livros, Integer> {
 	
 	List<Livros> findByGenero(String genero);
 	
-	void deleteByIsbn(Integer isbn);
+	@Transactional
+	void deleteByIsbn(String isbn);
 	
 }

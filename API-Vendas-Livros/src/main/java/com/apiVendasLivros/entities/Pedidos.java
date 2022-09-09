@@ -1,8 +1,12 @@
 package com.apiVendasLivros.entities;
 
+import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,20 +14,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.apiVendasLivros.enums.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @Entity
 @Table(name = "pedidos")
-@ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Pedidos {
+public class Pedidos implements Serializable {	
+	private static final long serialVersionUID = 1L;
 
 	@EqualsAndHashCode.Include
 	@Id
@@ -33,27 +37,28 @@ public class Pedidos {
 	private Date momento;
 	
 	@Column(name = "status_pedido")
-	private Integer status;
+	private Integer status;	
 	
-	@ManyToOne
-	@JoinColumn(name = "id_pedidos")
-	private DadosConta conta;
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "dados_conta_pedidos", 
+	joinColumns = @JoinColumn(name = "id_dados_conta", referencedColumnName = "id"), 
+	inverseJoinColumns = @JoinColumn(name = "id_pedidos", referencedColumnName = "id"))
+	private List<DadosConta> conta = new ArrayList<>();
 	
-	@OneToMany
-	@Column(name = "id_item_pedido")
-	private List<ItemPedido> itemPedido = new ArrayList<>();
-	
-	private Double total;
+	@ManyToMany
+	@JoinTable(name = "pedidos_item_pedido", 
+	joinColumns = @JoinColumn(name = "id_pedidos", referencedColumnName = "id"), 
+	inverseJoinColumns = @JoinColumn(name = "id_item_pedido", referencedColumnName = "id"))
+	private List<ItemPedido> itemPedido = new ArrayList<>();	
 	
 	public Pedidos() {		
 	}
 
-	public Pedidos(Integer id, Date momento, StatusPedido status, DadosConta conta) {
+	public Pedidos(Integer id, Date momento, StatusPedido status) {
 		this.id = id;
 		this.momento = momento;
 		this.status = status.getCod();
-		this.conta = conta;
-		this.total = total(itemPedido);
 	}
 
 	public Integer getId() {
@@ -76,26 +81,42 @@ public class Pedidos {
 		return momento;
 	}
 
-	public DadosConta getConta() {
+	public List<DadosConta> getConta() {
 		return conta;
 	}
 
 	public List<ItemPedido> getItemPedido() {
 		return itemPedido;
-	}	
+	}		
 	
-	public Double getTotal() {
-		return total;
-	}
-	
-	public Double total(List<ItemPedido> itemPedidos) {
+	public Double total() {
 		
-		double total = 0;
+		double total = 0.0;
 		
-		for (ItemPedido i : itemPedidos) {
-			total = total + i.subTotal();
+		for (ItemPedido i : itemPedido) {
+			total += i.subTotal();
 		}
 		
 		return total;
+	}	
+	
+	@Override
+	public String toString() {	
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pedido número: ");
+		builder.append(getId());
+		builder.append(", Instante: ");
+		builder.append(sdf.format(getMomento()));
+		builder.append(", Situação do Pagamento: ");
+		builder.append(getStatus().getDescricao());
+		builder.append("\nDetalhes:\n");
+		for (ItemPedido ip : getItemPedido()) {
+			builder.append(ip.toString());
+		}
+		builder.append("Valor Total: ");
+		builder.append(nf.format(total()));
+		return builder.toString();
 	}	
 }
