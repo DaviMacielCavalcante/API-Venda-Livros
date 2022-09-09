@@ -71,7 +71,7 @@ public class ItemPedido implements Serializable {
 		this.preco = livro.getPreco();
 	}
 	
-	public Double subTotal() {
+	public Double getSubTotal() {
 		return quantidade * preco;
 	}
 	
@@ -85,7 +85,7 @@ public class ItemPedido implements Serializable {
 		builder.append(", Preço Unitário: ");
 		builder.append(nf.format(getPreco()));
 		builder.append(", Subtotal: ");
-		builder.append(nf.format(subTotal()));
+		builder.append(nf.format(getSubTotal()));
 		builder.append("\n");
 		return builder.toString();
 	}

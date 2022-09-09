@@ -89,15 +89,8 @@ public class Pedidos implements Serializable {
 		return itemPedido;
 	}		
 	
-	public Double total() {
-		
-		double total = 0.0;
-		
-		for (ItemPedido i : itemPedido) {
-			total += i.subTotal();
-		}
-		
-		return total;
+	public Double getTotal() {		
+		return itemPedido.stream().map(x -> x.getSubTotal()).reduce(0.0, (x, y) -> x+y);		
 	}	
 	
 	@Override
@@ -116,7 +109,7 @@ public class Pedidos implements Serializable {
 			builder.append(ip.toString());
 		}
 		builder.append("Valor Total: ");
-		builder.append(nf.format(total()));
+		builder.append(nf.format(getTotal()));
 		return builder.toString();
 	}	
 }
