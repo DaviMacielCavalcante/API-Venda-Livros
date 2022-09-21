@@ -35,7 +35,6 @@ public class ItemPedidoService {
 	private void updateData(ItemPedido entity, ItemPedido obj) {
 		entity.setId(obj.getId());
 		entity.setLivro(obj.getLivro());
-		entity.setPreco(obj.getPreco());
 		entity.setQuantidade(obj.getQuantidade());		
 	}
 	

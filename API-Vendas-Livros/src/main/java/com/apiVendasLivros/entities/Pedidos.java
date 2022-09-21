@@ -16,10 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.apiVendasLivros.enums.StatusPedido;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
 
@@ -39,12 +39,9 @@ public class Pedidos implements Serializable {
 	@Column(name = "status_pedido")
 	private Integer status;	
 	
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "dados_conta_pedidos", 
-	joinColumns = @JoinColumn(name = "id_dados_conta", referencedColumnName = "id"), 
-	inverseJoinColumns = @JoinColumn(name = "id_pedidos", referencedColumnName = "id"))
-	private List<DadosConta> conta = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "id_dados_conta")
+	private DadosConta conta;
 	
 	@ManyToMany
 	@JoinTable(name = "pedidos_item_pedido", 
@@ -79,10 +76,14 @@ public class Pedidos implements Serializable {
 
 	public Date getMomento() {
 		return momento;
-	}
+	}	
 
-	public List<DadosConta> getConta() {
+	public DadosConta getDadosConta() {
 		return conta;
+	}
+	
+	public void setDadosConta(DadosConta conta) {
+		this.conta = conta;
 	}
 
 	public List<ItemPedido> getItemPedido() {
@@ -91,7 +92,11 @@ public class Pedidos implements Serializable {
 	
 	public Double getTotal() {		
 		return itemPedido.stream().map(x -> x.getSubTotal()).reduce(0.0, (x, y) -> x+y);		
-	}	
+	}		
+
+	public void setMomento(Date momento) {
+		this.momento = momento;
+	}
 	
 	@Override
 	public String toString() {	
@@ -100,6 +105,8 @@ public class Pedidos implements Serializable {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Pedido número: ");
 		builder.append(getId());
+		builder.append(", Conta: ");
+		builder.append(getDadosConta());
 		builder.append(", Instante: ");
 		builder.append(sdf.format(getMomento()));
 		builder.append(", Situação do Pagamento: ");
@@ -111,5 +118,5 @@ public class Pedidos implements Serializable {
 		builder.append("Valor Total: ");
 		builder.append(nf.format(getTotal()));
 		return builder.toString();
-	}	
+	}
 }

@@ -3,7 +3,7 @@ package com.apiVendasLivros.resources;
 import java.net.URI;
 import java.util.List;
 
-
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import com.apiVendasLivros.services.LivrosService;
 @RestController
 @RequestMapping(value = "/livros")
 @Transactional
-public class LivrosResources {
+public class LivrosResource {
 	
 	@Autowired
 	private LivrosService livrosService;
@@ -67,7 +67,7 @@ public class LivrosResources {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Livros obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Livros obj) {
 		
 		Livros livros = livrosService.insert(obj);
 		
@@ -77,7 +77,7 @@ public class LivrosResources {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Livros obj, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody Livros obj, @PathVariable Integer id) {
 		
 		obj.setId(id);
 		

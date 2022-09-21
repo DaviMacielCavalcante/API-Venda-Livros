@@ -45,14 +45,13 @@ public class ItemPedido implements Serializable {
 	private Livros livro;
 	
 	private Integer quantidade;
-	private Double preco;
 	
 	public ItemPedido() {		
 	}
 
 	public ItemPedido(Integer quantidade) {
 		this.quantidade = quantidade;
-		this.preco = livro.getPreco();
+		
 	}		
 
 	public void setId(Integer id) {
@@ -61,18 +60,14 @@ public class ItemPedido implements Serializable {
 	
 	public void setLivro(Livros livro) {
 		this.livro = livro;
-	}
+	}	
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
-	}
-
-	public void setPreco(Double preco) {
-		this.preco = livro.getPreco();
-	}
+	}	
 	
 	public Double getSubTotal() {
-		return quantidade * preco;
+		return quantidade * livro.getPreco();
 	}
 	
 	@Override
@@ -83,7 +78,7 @@ public class ItemPedido implements Serializable {
 		builder.append(", Qte: ");
 		builder.append(getQuantidade());
 		builder.append(", Preço Unitário: ");
-		builder.append(nf.format(getPreco()));
+		builder.append(nf.format(livro.getPreco()));
 		builder.append(", Subtotal: ");
 		builder.append(nf.format(getSubTotal()));
 		builder.append("\n");

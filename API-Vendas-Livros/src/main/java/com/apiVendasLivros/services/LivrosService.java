@@ -77,7 +77,7 @@ public class LivrosService {
 		entity.setProdutoDigital(obj.getProdutoDigital());
 		entity.setTitulo(obj.getTitulo());
 		entity.setTradutor(obj.getTradutor());
-	}
+	}	
 	
 	public void deleteById(Integer id) {
 		repository.deleteById(id);

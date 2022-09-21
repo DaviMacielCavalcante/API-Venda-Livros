@@ -14,6 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,15 +39,28 @@ public class DadosConta implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(unique = true)
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Email(message = "e-mail inválido!")
+	@Length(max = 75, message = "O campo comporta até 75 caracteres.")
 	private String email;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 15, message = "O campo comporta até 15 caracteres.")
 	private String nome;
 	
 	@Column(name = "sobre_nome")
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 50, message = "O campo comporta até 50 caracteres.")
 	private String sobreNome;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@CPF
 	private String cpf;
 	
 	@Column(name = "data_nascimento")
 	private Date dataNasc;
+	
 	private Integer telefone;
 	
 	
@@ -50,12 +70,7 @@ public class DadosConta implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "id_enderecos", referencedColumnName = "id"))
 	private List<Enderecos> enderecos = new ArrayList<>();		
 	
-	@ManyToMany	
-	@JoinTable(name = "dados_conta_pedidos", 
-	joinColumns = @JoinColumn(name = "id_dados_conta", referencedColumnName = "id"), 
-	inverseJoinColumns = @JoinColumn(name = "id_pedidos", referencedColumnName = "id"))	
-	private List<Pedidos> pedidos = new ArrayList<>();	
-	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "lista_desejos", 
 	joinColumns = @JoinColumn(name = "id_dados_conta", referencedColumnName = "id"), 
@@ -102,5 +117,5 @@ public class DadosConta implements Serializable {
 
 	public void setTelefone(Integer telefone) {
 		this.telefone = telefone;
-	}	
+	}
 }

@@ -1,16 +1,16 @@
 package com.apiVendasLivros.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.apiVendasLivros.enums.Acabamento;
 import com.apiVendasLivros.enums.Digital;
@@ -29,17 +29,36 @@ public class Livros implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 65, message = "O Título deve ter no máximo 65 caracteres.")
 	private String titulo;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 200, message = "O campo comporta até 200 caracteres.")
 	private String autor;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 200, message = "O campo comporta até 200 caracteres.")
 	private String tradutor;
+	
 	private Integer acabamento;	
 	
 	@Column(name = "sob_encomenda")
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 5, message = "O campo comporta até 5 caracteres.")
 	private String encomenda;
 	
 	private Integer edicao;	
+	
+	@Column(unique = true)
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 15, message = "O campo comporta até 15 caracteres.")
 	private String isbn;
+	
 	private Double preco;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 45, message = "O campo comporta até 45 caracteres.")
 	private String idioma;
 	
 	@Column(name = "fora_de_linha")
@@ -48,7 +67,7 @@ public class Livros implements Serializable {
 	@Column(name = "formato_digital")
 	private Integer formatoDigital;
 	
-	@Column(name = "produto_digital")
+	@Column(name = "produto_digital")	
 	private Integer produtoDigital;
 	
 	@Column(name = "numero_edicao")
@@ -58,13 +77,17 @@ public class Livros implements Serializable {
 	private Integer numeroPaginas;
 	
 	@Column(name = "pais_de_origem")
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 80, message = "O campo comporta até 80 caracteres.")
 	private String paisDeOrigem;
 	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 20, message = "O campo comporta até 20 caracteres.")
 	private String genero;
-	private String editora;
 	
-	@OneToMany
-	private List<ItemPedido> pedido = new ArrayList<>();
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 20, message = "O campo comporta até 20 caracteres.")
+	private String editora;	
 	
 	public Livros() {		
 	}

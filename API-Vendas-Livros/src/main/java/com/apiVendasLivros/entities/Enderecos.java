@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -30,14 +33,31 @@ public class Enderecos implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 45, message = "O campo comporta até 45 caracteres.")
 	private String rua;
+	
 	private Integer numero;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 20, message = "O campo comporta até 20 caracteres.")
 	private String bairro;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 45, message = "O campo comporta até 45 caracteres.")
 	private String cidade;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 45, message = "O campo comporta até 45 caracteres.")
 	private String estado;
 	
 	@Column(name = "pais_de_origem")
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 45, message = "O campo comporta até 45 caracteres.")
 	private String paisdeOrigem;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Length(max = 45, message = "O campo comporta até 45 caracteres.")
 	private String cep;		
 	
 	public void setId(Integer id) {
