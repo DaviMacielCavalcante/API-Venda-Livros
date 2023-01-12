@@ -103,6 +103,10 @@ public class Pedidos implements Serializable {
 		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		StringBuilder builder = new StringBuilder();
+		nf.setMinimumFractionDigits(2);
+		nf.setMaximumFractionDigits(4);
+		nf.setMinimumIntegerDigits(2);		
+		nf.setMaximumIntegerDigits(4);
 		builder.append("Pedido número: ");
 		builder.append(getId());
 		builder.append(", Conta: ");
@@ -116,7 +120,7 @@ public class Pedidos implements Serializable {
 			builder.append(ip.toString());
 		}
 		builder.append("Valor Total: ");
-		builder.append(nf.format(getTotal()));
+		builder.append((nf.format(getTotal())));
 		return builder.toString();
 	}
 }
